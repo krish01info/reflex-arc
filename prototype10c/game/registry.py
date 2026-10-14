@@ -146,8 +146,9 @@ SETTINGS = [
     Setting("MODEL_CTX", "choice", "sol", "context window in tokens; Ollama truncates "
             "silently past it", choices=(8192, 16384, 32768, 65536), replayed=False),
     Setting("OLLAMA_HOST", "str", "sol", "where the chat endpoint is", replayed=False),
-    Setting("MISSION_SOLS", "int", "sol", "sols in the mission; after the last, N is "
-            "refused and ESC asks to keep the run. 0 is no limit", 0, 30),
+    Setting("MISSION_SOLS", "int", "sol", "sols in the mission; after the last, the "
+            "window waits for N, 1-9 or ESC, and a headless run ends. 0 is no limit",
+            0, 100),
     Setting("AUTO_TURNS", "int", "sol", "turns the mission clock opens in a sol before "
             "it calls the sol itself", 1, 30),
     Setting("DAY_SECONDS", "int", "sol", "seconds in a sol on the mission clock, which "
@@ -173,10 +174,12 @@ SETTINGS = [
             "route and moves nothing", choices=("teleport", "plan")),
     Setting("TODO_MAX", "int", "sol", "items on the model's list in a sol", 1, 40),
     Setting("TODO_CHARS", "int", "sol", "characters in one list item", 40, 1000, 20),
-    Setting("MEMORY_CHARS", "int", "sol", "characters in the note that crosses the "
-            "night", 100, 3000, 50),
-    Setting("ORDERS_CHARS", "int", "sol", "characters in the operator's standing orders",
-            100, 3000, 50),
+    Setting("MEMORY_ENTRIES", "int", "sol", "entries her memory holds; at the cap she "
+            "forgets one before she adds", 1, 30),
+    Setting("MEMORY_CHARS", "int", "sol", "characters in one entry of her memory",
+            50, 1000, 25),
+    Setting("ORDERS_CHARS", "int", "sol", "characters in one order on the board",
+            50, 1000, 25),
     # --- after a restart ---------------------------------------------------
     Setting("APP_ARENA", "choice", "relaunch", "the arena: 30x30 or 50x50",
             choices=tuple(C.ARENAS), mod=C),
